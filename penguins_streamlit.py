@@ -7,6 +7,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
+penguin_df = pd.read_csv('penguins.csv')
+penguin_df.dropna(inplace=True)
 
 st.title('Penguin Classifier')
 st.write("""This app uses 6 inputs to predict the species of penguin using
@@ -92,3 +94,32 @@ st.write(
     relative importance below."""
 )
 st.image('feature_importance.png')
+
+st.write(
+ """Below are the histograms for each 
+    continuous variable separated by penguin 
+    species. The vertical line represents 
+    your the inputted value."""
+)
+
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['bill_length_mm'],
+                 hue=penguin_df['species'])
+plt.axvline(bill_length)
+plt.title('Bill Length by Species')
+st.pyplot(ax)
+
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['bill_depth_mm'],
+                 hue=penguin_df['species'])
+plt.axvline(bill_depth)
+plt.title('Bill Depth by Species')
+st.pyplot(ax)
+
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['flipper_length_mm'],
+                 hue=penguin_df['species'])
+plt.axvline(flipper_length)
+plt.title('Flipper Length by Species')
+st.pyplot(ax)
+
